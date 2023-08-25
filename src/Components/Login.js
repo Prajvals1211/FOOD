@@ -48,7 +48,7 @@ const Login = () => {
                   <label className="font-bold p-2 m-2">Name</label>
                   <input
                     type="text"
-                    name="password"
+                    name="name"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.name}
