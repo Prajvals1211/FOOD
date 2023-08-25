@@ -23,7 +23,7 @@ const Login = () => {
       <div className="bg-pink-50 m-1">
         <Formik
           validationSchema={schema}
-          initialValues={{ name: "Prajval", password: "" }}
+          initialValues={{ name: "", password: "" }}
           onSubmit={(values) => {
             // Alert the input values of the form that we filled
             toast.success(JSON.stringify(`Hello,${values.name}`));
