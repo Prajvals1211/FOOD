@@ -59,7 +59,7 @@ const Cart = () => {
         <div className=" flex  flex-col items-center">
           <img className="w-[500] bg-pink-50" src={CartImage} />
           <span className="font-bold text-3xl text-pink-500 flex justify-center">
-            Cart is EMPTY😥
+            Cart is EMPTY!!
           </span>
         </div>
       </div>
