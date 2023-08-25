@@ -54,7 +54,7 @@ export const Body = () => {
       <div className="p-3 flex justify-center my-2 bg-pink-50">
         <input
           type="text"
-          placeholder="search"
+          placeholder="search restaurant"
           className="p-2 flex space-x-1 w-[500px] rounded-lg m-1"
           value={searchText}
           onChange={(e) => {
