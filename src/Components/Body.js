@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { filterData } from "../utils/common";
 import useOnline from "../utils/useOnline";
 import { FiSearch } from "react-icons/fi";
+import { toast } from "react-hot-toast";
 
 export const Body = () => {
   const [allRestCard, setAllRestCard] = useState([]);
@@ -30,10 +31,20 @@ export const Body = () => {
     const json = await data.json();
 
     setRestaCard(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      !json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+        ? json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        : json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
     );
     setAllRestCard(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+       !json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+      ?.restaurants
+      ? json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      : json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
     );
   }
   return !restacard || restacard.length === 0 ? (
@@ -54,12 +65,31 @@ export const Body = () => {
           className="m-1 bg-pink-50 rounded-md hover:bg-pink-200"
           onClick={() => {
             if (searchText === "") {
+              toast("Not anything to search!", {
+                icon: "🤔",
+              });
               setRestaCard(allRestCard);
             } else {
               const data = filterData(searchText.toLowerCase(), allRestCard);
-              data.length === 0
-                ? setRestaCard(allRestCard)
-                : setRestaCard(data);
+              if (data.length === 0) {
+                toast.custom(
+                  <span className="bg-black p-2 py-2 px-2.5 rounded-md flex items-center leading-[1.3rem] will-change-transform shadow-md after:shadow-sm max-w-[350px] text-white">
+                    😥 Sorry we dont have{" "}
+                    <span className="font-bold m-1 text-white">
+                      {searchText}
+                    </span>{" "}
+                    right now.
+                  </span>,
+                  {
+                    style: {
+                      minWidth: "250px",
+                    },
+                  }
+                );
+                setRestaCard(allRestCard);
+              } else {
+                setRestaCard(data);
+              }
             }
           }}
         >
