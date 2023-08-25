@@ -48,7 +48,7 @@ const Cart = () => {
     <div className="flex justify-center">
       <div className="">
         <div className="flex justify-center">
-          <span className=" m-1 font-semibold text-3xl flex justify-center">
+          <span className=" m-1 ml-14 font-semibold text-3xl flex justify-center">
             You can go to{" "}
             <Link className="text-pink-500 ml-1 mr-1" to="/">
               Home Page
