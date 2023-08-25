@@ -75,7 +75,7 @@ export const Body = () => {
                 toast.custom(
                   <span className="bg-white p-2 py-2 px-2.5 rounded-md flex items-center leading-[1.3rem] will-change-transform shadow-md after:shadow-sm max-w-[350px] ">
                     😥 Sorry we dont have{" "}
-                    <span className="font-bold m-1 text-white">
+                    <span className="font-bold m-1">
                       {searchText}
                     </span>{" "}
                     right now.
