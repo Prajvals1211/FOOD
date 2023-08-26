@@ -29,7 +29,7 @@ const AppLayout = () => {
   const [user, setUser] = useState({
     name: "Prajval Sorate",
     email: "prajwals345@gamil.com",
-    contact: "7030587528",
+    contact: "+91-7030587528",
   });
   const location = useLocation();
   const [login, setLogin] = useState({
