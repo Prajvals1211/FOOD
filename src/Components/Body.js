@@ -22,6 +22,23 @@ export const Body = () => {
   if (!isOnline) {
     return <h1>OFFLINE!! Please check your internet connection😥</h1>;
   }
+const toastId = (e) => {
+    let id;
+    toast.remove(id);
+     id =toast.custom(
+      <span className="bg-white p-2 py-2 px-2.5 rounded-md flex items-center leading-[1.3rem] will-change-transform shadow-md after:shadow-sm max-w-[350px] ">
+        😥 Sorry, we dont have{" "}
+        <span className="font-bold m-1">{e.target.value}</span> right now.
+      </span>,
+      {
+        style: {
+          minWidth: "250px",
+        },
+        duration: 1000,
+      }
+    );
+    return id;
+  };
 
   async function RestaurantCardData() {
     const data = await fetch(
@@ -55,10 +72,15 @@ export const Body = () => {
         <input
           type="text"
           placeholder="search restaurant"
-          className="p-2 flex space-x-1 w-[500px] rounded-lg m-1"
+          className="p-3 flex space-x-1 w-[500px] rounded-lg m-1"
           value={searchText}
           onChange={(e) => {
-            setSearchText(e.target.value);
+           setSearchText(e.target.value);
+            const data = filterData(e.target.value.toLowerCase(), allRestCard);
+            e.target.value === "" || data.length === 0
+              ? setRestaCard(allRestCard)
+              : setRestaCard(data);
+             data.length === 0 ? toastId(e) : null;
           }}
         />
         <button
