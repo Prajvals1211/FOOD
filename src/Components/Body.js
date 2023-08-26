@@ -7,15 +7,17 @@ import { filterData } from "../utils/common";
 import useOnline from "../utils/useOnline";
 import { FiSearch } from "react-icons/fi";
 import { toast } from "react-hot-toast";
+import useLocation from "../utils/useLocation";
 
 export const Body = () => {
   const [allRestCard, setAllRestCard] = useState([]);
   const [restacard, setRestaCard] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
     RestaurantCardData();
-  }, []);
+  }, [location]);
 
   const isOnline = useOnline();
 
@@ -42,7 +44,7 @@ const toastId = (e) => {
 
   async function RestaurantCardData() {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.437973605399232&lng=73.86362334666698"
+      `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${location?.latitude}&lng=${location?.longitude}`
     );
 
     const json = await data.json();
