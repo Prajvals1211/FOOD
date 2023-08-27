@@ -1,7 +1,8 @@
 import { IMG_URL } from "../Constant";
-import { useSelector } from "react-redux";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { BiSolidOffer } from "react-icons/bi";
+import { addItem, removeItem, increment, decrement } from "../utils/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Restocard = ({ name, cuisines, cloudinaryImageId }) => {
   return (
@@ -37,14 +38,16 @@ export const RestoInfo = ({
             {areaName},{city}
           </p>
         </div>
-        <div className="flex justify-between w-[120%] mx-2 px-2">
-          <p className="">{costForTwoMessage}</p>
-          <p className="text-lg">|</p>
-
-          <p className="text-sm ">{sla.slaString}</p>
-          <p className="text-lg ">|</p>
-
-          <p className="text-sm">{sla.lastMileTravelString}</p>
+        <div className="flex justify-between w-[120%] ">
+          <p className="m-1">{costForTwoMessage}</p>
+          {sla.lastMileTravel < 15 ? (
+            <>
+              <p className="text-lg m-1">|</p>
+              <p className="text-sm m-1 ">{sla.slaString}</p>
+              <p className="text-lg m-1 ">|</p>
+              <p className="text-sm m-1 p-1">{sla.lastMileTravelString}</p>
+            </>
+          ) : null}
         </div>
         <div className="flex py-4 ">
           {aggregatedDiscountInfo.descriptionList.map((offer) => {
@@ -92,28 +95,55 @@ export const RestoInfo = ({
 };
 
 export const FoodCart = ({ food, count }) => {
+  const cartItems = useSelector((store) => store.cart.items);
+
+  const dispatch = useDispatch();
+
+  const handleAddItem = (e) => {
+    dispatch(addItem(e));
+  };
+
+  const handleRemoveItem = (e) => {
+    dispatch(removeItem(e));
+  };
+
   return (
     <>
-      <div className="border-b-4 w-[55%]">
+      <div className=" w-[55%]">
         <div className="flex my-4 items-center justify-between py-2  border-b-2">
           <div className="w-[60%]">
             <h3 className="text-lg ">{food.name} - </h3>
             <div className="flex text-gray-600 font-medium">
               <div className="flex items-center my-2 text-base ml-0">
-                <p className="px-2">Quantity {count}</p>
+                {/* <p className="px-2">Quantity {count}</p> */}
                 <span>
                   {" "}
-                  ₹.{food.price ? food.price / 100 : food.defaultPrice / 100}
+                  ₹ {food.price ? (food.price / 100).toFixed(2) : (food.defaultPrice / 100).toFixed(2)}
                 </span>
               </div>
             </div>
           </div>
-          <div>
+          <div className="flex justify-between m-1 flex-col">
             <img
               className="h-[85] rounded-md"
               alt="res-img"
               src={IMG_URL + food.imageId}
             />
+            <div className="flex items-center  bg-pink-50 font-bold w-[100px] justify-between ml-4">
+              <button
+                className="text-xl text-green-600"
+                onClick={() => handleAddItem(food)}
+              >
+                +
+              </button>
+              <span className="text-orange-400 mt-1"> {count}</span>
+              <button
+                className=" text-2xl text-red-600 mt-1"
+                onClick={() => handleRemoveItem(food)}
+              >
+                -
+              </button>
+            </div>
           </div>
         </div>
       </div>
