@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 
-const useLocation = () => {
+
+const useLocation1 = () => {
   const [location, setLocation] = useState(null);
+  const [city,setCity] = useState(null)
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -10,11 +12,17 @@ const useLocation = () => {
         (position) => {
           // Extract latitude and longitude from the position object
           const { latitude, longitude } = position.coords;
+          // console.log(latitude, longitude);
           setLocation({ latitude, longitude });
-          toast.loading("Loading",
-            // "Location fetched successfully! Fetching restaurants...",
-            { duration: 2000 }
-          );
+          
+          fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              
+              setCity(data.address);
+            });
         },
         (error) => {
           console.error("Error getting location:", error.message);
@@ -26,6 +34,6 @@ const useLocation = () => {
     }
   }, []);
 
-  return location;
+  return [location,city];
 };
-export default useLocation;
+export default useLocation1;
