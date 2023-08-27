@@ -8,9 +8,12 @@ import { IMG_URL } from "../Constant";
 import useRestuarant from "../utils/useRestuarant";
 import { addItem, removeItem, increment, decrement } from "../utils/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { BsFillCartFill } from "react-icons/bs";
 
 const RestaurantMenu = () => {
   const resId = useParams();
+  const navigate = useNavigate();
   const [restInformation, recommended] = useRestuarant(resId);
   const [addbtn, setAddBtn] = useState(null);
   const [toshow, setToShow] = useState(true);
@@ -32,7 +35,9 @@ const RestaurantMenu = () => {
     dispatch(decrement());
     setAddBtn1(addbtn1 - 1);
   };
-
+  const navigateToCart = () => {
+    navigate("/cart");
+  };
   return !restInformation ? (
     <Shimmer />
   ) : (
@@ -54,6 +59,22 @@ const RestaurantMenu = () => {
               className="w-[100%] my-6 border-b-4 bg-pink-50"
               key={list?.card?.info?.id}
             >
+              {cartItems.length > 0 && (
+                <div className=" flex fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50 bg-blue-500 text-white rounded-lg px-3">
+                  <span>
+                    {" "}
+                    <BsFillCartFill
+                      style={{ fontSize: "0.8rem", marginTop: "14px" }}
+                    />
+                  </span>
+                  <button
+                    className="bg-blue-500 text-white px-2 py-2 rounded-lg shadow-md"
+                    onClick={navigateToCart}
+                  >
+                    Cart - {cartItems.length}
+                  </button>
+                </div>
+              )}
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold mx-3">
                   {list?.card?.title} {length && <span>({length})</span>}
