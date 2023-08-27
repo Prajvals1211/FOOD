@@ -7,16 +7,37 @@ import { filterData } from "../utils/common";
 import useOnline from "../utils/useOnline";
 import { FiSearch } from "react-icons/fi";
 import { toast } from "react-hot-toast";
-import useLocation from "../utils/useLocation";
+import useLocation1 from "../utils/useLocation";
 
 export const Body = () => {
   const [allRestCard, setAllRestCard] = useState([]);
   const [restacard, setRestaCard] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const location = useLocation();
+  const [location, city] = useLocation1();
 
   useEffect(() => {
+    let loading;
+    toast.remove(loading);
+    loading = toast.loading("Loading", { duration: 2000 });
     RestaurantCardData();
+    // const handleScroll = () => {
+    //   const windowHeight = window.innerHeight;
+    //   const documentHeight = document.documentElement.scrollHeight;
+    //   const scrollTop = window.scrollY;
+
+    //   // Check if we're near the bottom of the page
+    //   if (scrollTop + windowHeight >= documentHeight - 100) {
+    //     // Load more content or perform any action when near the bottom
+    //     loadMoreData();
+    //     console.log("Near the bottom of the page");
+    //   }
+    // };
+
+    // window.addEventListener("scroll", handleScroll);
+
+    // return () => {
+    //   window.removeEventListener("scroll", handleScroll);
+    // };
   }, [location]);
 
   const isOnline = useOnline();
@@ -24,10 +45,10 @@ export const Body = () => {
   if (!isOnline) {
     return <h1>OFFLINE!! Please check your internet connection😥</h1>;
   }
-const toastId = (e) => {
+  const toastId = (e) => {
     let id;
     toast.remove(id);
-     id =toast.custom(
+    id = toast.custom(
       <span className="bg-white p-2 py-2 px-2.5 rounded-md flex items-center leading-[1.3rem] will-change-transform shadow-md after:shadow-sm max-w-[350px] ">
         😥 Sorry, we dont have{" "}
         <span className="font-bold m-1">{e.target.value}</span> right now.
@@ -36,7 +57,7 @@ const toastId = (e) => {
         style: {
           minWidth: "250px",
         },
-        duration: 1000,
+        duration: 500,
       }
     );
     return id;
@@ -45,6 +66,7 @@ const toastId = (e) => {
   async function RestaurantCardData() {
     const data = await fetch(
       `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${location?.latitude}&lng=${location?.longitude}`
+      // "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.437973605399232&lng=73.86362334666698"
     );
 
     const json = await data.json();
@@ -58,14 +80,50 @@ const toastId = (e) => {
             ?.restaurants
     );
     setAllRestCard(
-       !json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
-      ?.restaurants
-      ? json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
-      : json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants
+      !json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+        ? json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        : json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
     );
+    
   }
+  // async function loadMoreData() {
+  //   const data = await fetch(
+  //     // `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${location?.latitude}&lng=${location?.longitude}`
+  //      `https://www.swiggy.com/dapi/restaurants/list/update/?lat=${location?.latitude}&lng=${location?.longitude}`
+  //   );
+
+  //   const newData = await data.json();
+  //   // if (
+  //   //   !newData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+  //   // ) {
+  //   //   setRestaCard((prevData) => [
+  //   //     ...prevData,
+  //   //     ...newData.data.cards[1].card?.card?.gridElements?.infoWithStyle
+  //   //       .restaurants,
+  //   //   ]);
+
+  //   //   setAllRestCard((prevData) => [
+  //   //     ...prevData,
+  //   //     ...newData.data.cards[1].card?.card?.gridElements?.infoWithStyle
+  //   //       .restaurants,
+  //   //   ]);
+  //   // } else {
+  //   //   setRestaCard((prevData) => [
+  //   //     ...prevData,
+  //   //     ...newData.data.cards[2].card?.card?.gridElements?.infoWithStyle
+  //   //       .restaurants,
+  //   //   ]);
+
+  //   //   setAllRestCard((prevData) => [
+  //   //     ...prevData,
+  //   //     ...newData.data.cards[2].card?.card?.gridElements?.infoWithStyle
+  //   //       .restaurants,
+  //   //   ]);
+  //   // }
+  // }
   return !restacard || restacard.length === 0 ? (
     <Shimmer />
   ) : (
@@ -77,12 +135,12 @@ const toastId = (e) => {
           className="p-3 flex space-x-1 w-[500px] rounded-lg m-1"
           value={searchText}
           onChange={(e) => {
-           setSearchText(e.target.value);
+            setSearchText(e.target.value);
             const data = filterData(e.target.value.toLowerCase(), allRestCard);
             e.target.value === "" || data.length === 0
               ? setRestaCard(allRestCard)
               : setRestaCard(data);
-             data.length === 0 ? toastId(e) : null;
+            data.length === 0 ? toastId(e) : null;
           }}
         />
         <button
@@ -98,11 +156,9 @@ const toastId = (e) => {
               if (data.length === 0) {
                 toast.custom(
                   <span className="bg-white p-2 py-2 px-2.5 rounded-md flex items-center leading-[1.3rem] will-change-transform shadow-md after:shadow-sm max-w-[350px] ">
-                    😥 Sorry we dont have{" "}
-                    <span className="font-bold m-1">
-                      {searchText}
-                    </span>{" "}
-                    right now.
+                    😥 Sorry, we dont have{" "}
+                    <span className="font-bold m-1">{searchText}</span> right
+                    now.
                   </span>,
                   {
                     style: {
