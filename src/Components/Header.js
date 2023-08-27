@@ -8,28 +8,44 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import Location from "../utils/location";
 import Food from "../Images/Food.png";
 import { FaBowlFood } from "react-icons/fa6";
+import useLocation1 from "../utils/useLocation";
+import { CiLocationOn } from "react-icons/ci";
 
-const heading = (
-  <a href="/" className="">
-    <div className="bg-pink-50 flex">
-      <img
-        data-testid="logo"
-        className="h-[100px] mt-2"
-        src={Food}
-        alt="logo"
-      />
-      <div className="text-pink-500">
-        <FaBowlFood
+const Heading = () => {
+  const [loc, city] = useLocation1();
+  return (
+    <>
+      <a href="/" className="">
+        <div className="bg-pink-50 flex fixed">
+          <img
+            data-testid="logo"
+            className="h-[100px] mt-2"
+            src={Food}
+            alt="logo"
+          />
+         
+        </div>
+      </a>
+      <div className="mt-9 mr-[350px] text-xl flex">
+        <CiLocationOn
           style={{
-            fontSize: "2rem",
+            fontSize: "1.6rem",
 
-            marginTop: "34px",
+            margin: "1px",
           }}
         />
+        {city ? (
+          <div className="mb-6 ">
+            <span className="font-light m-1 ">
+              <span className="border-b-2 border-black">{city.city},</span><span className="m-1 ">{city.state},</span>
+              <span className="m-1">{city.country}</span>
+            </span>
+          </div>
+        ) : null}
       </div>
-    </div>
-  </a>
-);
+    </>
+  );
+};
 
 const Header = () => {
   const cartItems = useSelector((store) => store.cart.items);
@@ -38,13 +54,13 @@ const Header = () => {
 
   return (
     <div className="flex justify-between bg-pink-50 shadow-lg ">
-      {heading}
+      <Heading />
 
       <div className="">
         <ul className="flex py-10">
           {login != undefined && login.name != "Login name" ? (
-            <li className=" px-8 hover:text-red-500 text-xl font-semibold">
-              Hi,{login.name.toUpperCase()}👋
+            <li className="hover:text-red-500 text-xl font-semibold flex">
+              Hi,{login.name.toUpperCase()}
             </li>
           ) : location.pathname === "/login" ? (
             <li className=" px-8 text-red-500 text-xl">
