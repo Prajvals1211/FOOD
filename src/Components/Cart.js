@@ -4,8 +4,17 @@ import { clearCart } from "../utils/cartSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import CartImage from "../Images/CartEmpty.png";
+import { useContext, useState } from "react";
+import LoginContext from "../utils/loginContext";
+import { useNavigate } from "react-router-dom";
+import { Navigatetologinpage } from "../utils/location";
+
 const Cart = () => {
   let newCartItem;
+  const navigate = useNavigate();
+  const [Navigatetologin,setNavigateToLogin] = useContext(Navigatetologinpage);
+  const { login } = useContext(LoginContext);
+  const [loginbtn,setLoginbtn]  = useState(false);
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.items);
   const handleClearCart = () => {
@@ -16,7 +25,7 @@ const Cart = () => {
       setTimeout(() => {
         resolve("Order Placed successfully");
         toast.dismiss(a);
-      }, 2000);
+      }, 3000);
     });
 
     promise
@@ -30,9 +39,21 @@ const Cart = () => {
   };
 
   const handlePlaceOrder = () => {
-    let a = toast.loading("Placing Order");
-    showToast(a);
+    if (login.name === "Login name") {
+      toast("To place your order now, kindly log in to your account", {
+        position: "top-right",
+      });
+      setNavigateToLogin('cart');
+      setLoginbtn(true);
+    } else {
+      let a = toast.loading("Placing Order");
+      showToast(a);
+    }
   };
+  const navigateToLogin = ()=>{
+    
+    navigate('/login')
+  }
   let iteminCards = [];
   if (cartItems.length > 0) {
     iteminCards = [...new Set(cartItems)];
@@ -40,8 +61,8 @@ const Cart = () => {
   let totalAmount = 0;
   cartItems.map((e) => {
     e.price
-      ? (totalAmount = totalAmount + e.price / 100).toFixed(0)
-      : (totalAmount = totalAmount + e.defaultPrice / 100).toFixed(0);
+      ? (totalAmount = totalAmount + e.price / 100).toFixed(2)
+      : (totalAmount = totalAmount + e.defaultPrice / 100).toFixed(2);
   });
   const toPay = totalAmount + 29 + 49;
   return cartItems.length === 0 ? (
@@ -66,6 +87,16 @@ const Cart = () => {
     </div>
   ) : (
     <div className="flex flex-col bg-pink-50 m-1 p-2 shadow-lg">
+     {loginbtn &&
+      <div className="fixed  left-1/2 transform -translate-x-1/2 z-50">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md"
+           onClick={navigateToLogin}
+        >
+          Click here to logIn
+        </button>
+      </div>
+}
       <div className="flex justify-between">
         {cartItems.length === 1 ? (
           <h1 className="font-bold text-3xl p-2 m-3">
@@ -103,7 +134,7 @@ const Cart = () => {
               <div className="my-2">
                 <div className="flex items-center justify-between">
                   <p>Item Total</p>{" "}
-                  <span className="mx-10">₹ {totalAmount}</span>
+                  <span className="mx-10">₹ {totalAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <p>Delivery Fee</p> <span className="mx-10">₹ 29</span>
@@ -116,7 +147,7 @@ const Cart = () => {
             </div>
           </div>
           <div className="font-bold flex items-center justify-between">
-            <p>TO PAY</p> <span className="mx-12">₹ {toPay}</span>
+            <p>TO PAY</p> <span className="mx-12">₹ {toPay.toFixed(2)}</span>
           </div>
         </div>
 
