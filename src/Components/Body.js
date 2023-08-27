@@ -20,24 +20,7 @@ export const Body = () => {
     toast.remove(loading);
     loading = toast.loading("Loading", { duration: 2000 });
     RestaurantCardData();
-    // const handleScroll = () => {
-    //   const windowHeight = window.innerHeight;
-    //   const documentHeight = document.documentElement.scrollHeight;
-    //   const scrollTop = window.scrollY;
-
-    //   // Check if we're near the bottom of the page
-    //   if (scrollTop + windowHeight >= documentHeight - 100) {
-    //     // Load more content or perform any action when near the bottom
-    //     loadMoreData();
-    //     console.log("Near the bottom of the page");
-    //   }
-    // };
-
-    // window.addEventListener("scroll", handleScroll);
-
-    // return () => {
-    //   window.removeEventListener("scroll", handleScroll);
-    // };
+  
   }, [location]);
 
   const isOnline = useOnline();
@@ -89,41 +72,7 @@ export const Body = () => {
     );
     
   }
-  // async function loadMoreData() {
-  //   const data = await fetch(
-  //     // `https://www.swiggy.com/dapi/restaurants/list/v5?lat=${location?.latitude}&lng=${location?.longitude}`
-  //      `https://www.swiggy.com/dapi/restaurants/list/update/?lat=${location?.latitude}&lng=${location?.longitude}`
-  //   );
-
-  //   const newData = await data.json();
-  //   // if (
-  //   //   !newData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-  //   // ) {
-  //   //   setRestaCard((prevData) => [
-  //   //     ...prevData,
-  //   //     ...newData.data.cards[1].card?.card?.gridElements?.infoWithStyle
-  //   //       .restaurants,
-  //   //   ]);
-
-  //   //   setAllRestCard((prevData) => [
-  //   //     ...prevData,
-  //   //     ...newData.data.cards[1].card?.card?.gridElements?.infoWithStyle
-  //   //       .restaurants,
-  //   //   ]);
-  //   // } else {
-  //   //   setRestaCard((prevData) => [
-  //   //     ...prevData,
-  //   //     ...newData.data.cards[2].card?.card?.gridElements?.infoWithStyle
-  //   //       .restaurants,
-  //   //   ]);
-
-  //   //   setAllRestCard((prevData) => [
-  //   //     ...prevData,
-  //   //     ...newData.data.cards[2].card?.card?.gridElements?.infoWithStyle
-  //   //       .restaurants,
-  //   //   ]);
-  //   // }
-  // }
+ 
   return !restacard || restacard.length === 0 ? (
     <Shimmer />
   ) : (
