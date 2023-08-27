@@ -4,6 +4,7 @@ import { useContext } from "react";
 import LoginContext from "../utils/loginContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { Navigatetologinpage } from "../utils/location";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Name is a required field"),
@@ -14,6 +15,7 @@ const schema = Yup.object().shape({
 });
 const Login = () => {
   const navigate = useNavigate();
+  const [navigatetocart] = useContext(Navigatetologinpage);
   const { login, setLogin } = useContext(LoginContext);
   return (
     <>
@@ -30,7 +32,7 @@ const Login = () => {
             setLogin({
               name: values.name,
             });
-            navigate("/"); // this is used to navigate to body component
+            navigatetocart === 'cart'?navigate("/cart"):navigate("/") // this is used to navigate to body component
           }}
         >
           {({
