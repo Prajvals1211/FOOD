@@ -21,8 +21,7 @@ import store from "./utils/store";
 import Login from "./Components/Login";
 import LoginContext from "./utils/loginContext";
 import { Toaster } from "react-hot-toast";
-import Location from "./utils/location";
-
+import Location, { Navigatetologinpage } from "./utils/location";
 const Cart = lazy(() => import("./Components/Cart"));
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const AppLayout = () => {
@@ -35,6 +34,7 @@ const AppLayout = () => {
   const [login, setLogin] = useState({
     name: "Login name",
   });
+  const [navigatetologin,setNavigateToLogin] = useState('X');
 
   return (
     <>
@@ -45,6 +45,7 @@ const AppLayout = () => {
             setUser: setUser,
           }}
         >
+          <Navigatetologinpage.Provider value={[navigatetologin,setNavigateToLogin]}>
           <Location.Provider value={location}>
             <LoginContext.Provider
               value={{
@@ -58,6 +59,7 @@ const AppLayout = () => {
               <Toaster position="top-center" />
             </LoginContext.Provider>
           </Location.Provider>
+          </Navigatetologinpage.Provider>
         </UserContext.Provider>
       </Provider>
     </>
