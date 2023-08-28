@@ -16,7 +16,7 @@ const Heading = () => {
   return (
     <>
       <a href="/" className="">
-        <div className="bg-pink-50 flex fixed">
+        <div className="bg-pink-50 flex">
           <img
             data-testid="logo"
             className="h-[100px] mt-2"
