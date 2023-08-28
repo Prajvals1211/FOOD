@@ -26,7 +26,7 @@ const Heading = () => {
          
         </div>
       </a>
-      <div className="mt-9 mr-[350px] text-xl flex">
+      <div className="mt-9 2xl:mr-[600px] xl:mr-[300px] text-xl flex">
         <CiLocationOn
           style={{
             fontSize: "1.6rem",
