@@ -71,7 +71,7 @@ const RestaurantMenu = () => {
                     className="bg-pink-500 text-white px-2 py-2 rounded-lg shadow-md"
                     onClick={navigateToCart}
                   >
-                    Cart - {cartItems.length}
+                    Go to Cart - {cartItems.length}
                   </button>
                 </div>
               )}
