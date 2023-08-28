@@ -90,7 +90,7 @@ const Cart = () => {
      {loginbtn &&
       <div className="fixed  left-1/2 transform -translate-x-1/2 z-50">
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md"
+          className="bg-pink-500 text-white px-4 py-2 rounded-lg shadow-md"
            onClick={navigateToLogin}
         >
           Click here to logIn
