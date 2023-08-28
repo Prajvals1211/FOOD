@@ -60,7 +60,7 @@ const RestaurantMenu = () => {
               key={list?.card?.info?.id}
             >
               {cartItems.length > 0 && (
-                <div className=" flex fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50 bg-blue-500 text-white rounded-lg px-3">
+                <div className=" flex fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50 bg-pink-500 text-white rounded-lg px-3">
                   <span>
                     {" "}
                     <BsFillCartFill
@@ -68,7 +68,7 @@ const RestaurantMenu = () => {
                     />
                   </span>
                   <button
-                    className="bg-blue-500 text-white px-2 py-2 rounded-lg shadow-md"
+                    className="bg-pink-500 text-white px-2 py-2 rounded-lg shadow-md"
                     onClick={navigateToCart}
                   >
                     Cart - {cartItems.length}
