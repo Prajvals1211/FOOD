@@ -37,7 +37,7 @@ const Heading = () => {
         {city ? (
           <div className="mb-6 ">
             <span className="font-light m-1 ">
-              <span className="border-b-2 border-black">{city.city},</span><span className="m-1 ">{city.state},</span>
+              <span className="border-b-2 border-black m-1">{city.city}</span><span className="m-1 ">{city.state}</span>
               <span className="m-1">{city.country}</span>
             </span>
           </div>
