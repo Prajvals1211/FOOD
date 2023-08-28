@@ -10,6 +10,7 @@ import { addItem, removeItem, increment, decrement } from "../utils/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
+import {CgChevronUp,CgChevronDown} from "react-icons/cg";
 
 const RestaurantMenu = () => {
   const resId = useParams();
@@ -86,7 +87,7 @@ const RestaurantMenu = () => {
                       setToShow(false);
                     }}
                   >
-                    <LuPanelBottomOpen />
+                    <CgChevronUp />
                   </i>
                 ) : (
                   <i
@@ -95,7 +96,7 @@ const RestaurantMenu = () => {
                       setToShow(true);
                     }}
                   >
-                    <LuPanelBottomClose />
+                   <CgChevronDown />
                   </i>
                 )}
               </div>
