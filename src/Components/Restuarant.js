@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const Restocard = ({ name, cuisines, cloudinaryImageId }) => {
   return (
-    <div className=" w-[300px] p-2 m-2 bg-pink-100 hover:shadow-lg hover:animate-pulse ">
+    <div className=" w-[300px] p-2 m-2 bg-pink-100 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-pink-200 duration-300">
       <img src={IMG_URL + cloudinaryImageId}></img>
       <h2 className="font-bold text-1xl">{name}</h2>
       <h3>{cuisines.join(", ")}</h3>
@@ -94,7 +94,7 @@ export const RestoInfo = ({
   );
 };
 
-export const FoodCart = ({ food, count }) => {
+export const FoodCart = ({ food, count}) => {
   const cartItems = useSelector((store) => store.cart.items);
 
   const dispatch = useDispatch();
@@ -109,12 +109,12 @@ export const FoodCart = ({ food, count }) => {
 
   return (
     <>
-      <div className=" w-[55%]">
-        <div className="flex my-4 items-center justify-between py-2  border-b-2">
-          <div className="w-[60%]">
-            <h3 className="text-lg ">{food.name} - </h3>
+      <div className="  w-[55%]">
+        <div className="flex  justify-between ">
+          <div className="">
+            <h3 className="text-md ">{food.name} - </h3>
             <div className="flex text-gray-600 font-medium">
-              <div className="flex items-center my-2 text-base ml-0">
+              <div className="flex items-center my-2 text-sm ml-0">
                 {/* <p className="px-2">Quantity {count}</p> */}
                 <span>
                   {" "}
@@ -125,11 +125,11 @@ export const FoodCart = ({ food, count }) => {
           </div>
           <div className="flex justify-between m-1 flex-col">
             <img
-              className="h-[85] rounded-md"
+              className="h-[65] rounded-lg ml-3 p-1"
               alt="res-img"
               src={IMG_URL + food.imageId}
             />
-            <div className="flex items-center  bg-pink-50 font-bold w-[100px] justify-between ml-4">
+            <div className="flex items-center  bg-pink-50 font-bold w-[100px] justify-between ml-2">
               <button
                 className="text-xl text-green-600"
                 onClick={() => handleAddItem(food)}
