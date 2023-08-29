@@ -28,7 +28,7 @@ const Login = () => {
           initialValues={{ name: "", password: "" }}
           onSubmit={(values) => {
             // Alert the input values of the form that we filled
-            toast.success(JSON.stringify(`Hello,${values.name}`));
+            toast.success(`Hello,${values.name}`);
             setLogin({
               name: values.name,
             });
