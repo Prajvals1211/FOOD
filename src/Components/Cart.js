@@ -8,34 +8,30 @@ import { useContext, useState } from "react";
 import LoginContext from "../utils/loginContext";
 import { useNavigate } from "react-router-dom";
 import { Navigatetologinpage } from "../utils/location";
+import { FcApproval } from "react-icons/fc";
 
 const Cart = () => {
   let newCartItem;
   const navigate = useNavigate();
-  const [Navigatetologin,setNavigateToLogin] = useContext(Navigatetologinpage);
+  const [Navigatetologin, setNavigateToLogin] = useContext(Navigatetologinpage);
   const { login } = useContext(LoginContext);
-  const [loginbtn,setLoginbtn]  = useState(false);
+  const [loginbtn, setLoginbtn] = useState(false);
+  const [notification, setNotification] = useState(false);
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.items);
   const handleClearCart = () => {
     dispatch(clearCart());
   };
   const showToast = (a) => {
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("Order Placed successfully");
-        toast.dismiss(a);
-      }, 3000);
-    });
-
-    promise
-      .then((message) => {
-        toast.success(message);
-        setTimeout(() => {
-          dispatch(clearCart());
-        }, 1000);
-      })
-      .catch((error) => toast.error(error));
+    setTimeout(() => {
+      setNotification(true);
+    }, 2000);
+   
+    setTimeout(() => {
+      toast.dismiss(a);
+     
+      dispatch(clearCart());
+    }, 3000);
   };
 
   const handlePlaceOrder = () => {
@@ -43,17 +39,16 @@ const Cart = () => {
       toast("To place your order now, kindly log in to your account", {
         position: "top-right",
       });
-      setNavigateToLogin('cart');
+      setNavigateToLogin("cart");
       setLoginbtn(true);
     } else {
       let a = toast.loading("Placing Order");
       showToast(a);
     }
   };
-  const navigateToLogin = ()=>{
-    
-    navigate('/login')
-  }
+  const navigateToLogin = () => {
+    navigate("/login");
+  };
   let iteminCards = [];
   if (cartItems.length > 0) {
     iteminCards = [...new Set(cartItems)];
@@ -65,38 +60,70 @@ const Cart = () => {
       : (totalAmount = totalAmount + e.defaultPrice / 100).toFixed(2);
   });
   const toPay = totalAmount + 29 + 49;
-  return cartItems.length === 0 ? (
-    <div className="flex justify-center">
+  return cartItems.length === 0 && !notification ? (
+    <div className="flex justify-center ">
       <div className="">
         <div className="flex justify-center">
-          <span className=" m-1 ml-14 font-semibold text-3xl flex justify-center">
+          <span className=" m-1 ml-14 mt-12 font-semibold text-3xl flex justify-center">
             You can go to{" "}
-            <Link className="text-pink-500 ml-1 mr-1" to="/">
+            <Link
+              className="text-pink-500 ml-1 mr-1 hover:border-b-[1px] border-b-pink-300"
+              to="/"
+            >
               Home Page
             </Link>
             to view more restaurants.
           </span>
         </div>
         <div className=" flex  flex-col items-center">
-          <img className="w-[500] bg-pink-50" src={CartImage} />
-          <span className="font-bold text-3xl text-pink-500 flex justify-center">
+          <img className="w-[500] bg-pink-50 " src={CartImage} />
+          <span className="font-bold text-3xl text-pink-500 flex justify-center ">
             Cart is EMPTY!!
           </span>
         </div>
       </div>
     </div>
+  ) : notification ? (
+    <div className="h-[500px]">
+      <div className="">
+        <div className="">
+          <div className="flex items-center flex-col">
+            <div className="animate-bounce mt-32">
+              <FcApproval
+                style={{
+                  fontSize: "3rem",
+                  marginRight: "",
+                  marginTop: "",
+                }}
+              />
+            </div>
+            <span className="m-1 font-medium text-2xl">
+              Order Placed successfully
+            </span>
+            <button
+              className="rounded-md bg-orange-500 text-white p-3 m-6"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Go to restaurant
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   ) : (
     <div className="flex flex-col bg-pink-50 m-1 p-2 shadow-lg">
-     {loginbtn &&
-      <div className="fixed  left-1/2 transform -translate-x-1/2 z-50">
-        <button
-          className="bg-pink-500 text-white px-4 py-2 rounded-lg shadow-md"
-           onClick={navigateToLogin}
-        >
-          Click here to logIn
-        </button>
-      </div>
-}
+      {loginbtn && (
+        <div className="fixed  left-1/2 transform -translate-x-1/2 z-50">
+          <button
+            className="bg-pink-500 text-white px-4 py-2 rounded-lg shadow-md"
+            onClick={navigateToLogin}
+          >
+            Click here to logIn
+          </button>
+        </div>
+      )}
       <div className="flex justify-between">
         {cartItems.length === 1 ? (
           <h1 className="font-bold text-3xl p-2 m-3">
@@ -115,18 +142,18 @@ const Cart = () => {
           Clear Cart
         </button>
       </div>
-      <div className="flex flex-row mx-10">
-        <div className="flex flex-wrap w-[50%]">
+      <div className="flex flex-row  h-fit items-center">
+        <div className="flex flex-col justify-center  p-1 m-1 w-[50%] ml-40">
           {iteminCards.map((e) => {
             let a = cartItems.filter((c) => {
               return c.id === e.id;
             }).length;
-            return <FoodCart food={e} count={a} key={e.id} />;
+            return <FoodCart food={e} count={a}  key={e.id} />;
           })}
         </div>
 
-        <div>
-          <div className="flex  my-4 border-b-2 border-b-black ">
+        <div className="h-[400px]">
+          <div className="flex  my-4 border-b-2 border-b-black items-center mt-28">
             <div className="">
               <div className="border-b-2 p-2">
                 <h2 className="mx-14 px-10">Bill Details</h2>
@@ -151,10 +178,10 @@ const Cart = () => {
           </div>
         </div>
 
-        <div className="m-16">
+        <div className="m-16 ">
           <div>
             <button
-              className="p-2 m-3 bg-green-500 font-bold rounded-md text-white"
+              className="p-2 m-1 bg-green-500 font-bold rounded-md text-white"
               onClick={() => {
                 handlePlaceOrder();
               }}
