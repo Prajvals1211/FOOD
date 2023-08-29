@@ -112,9 +112,9 @@ export const FoodCart = ({ food, count}) => {
       <div className="  w-[55%]">
         <div className="flex  justify-between ">
           <div className="">
-            <h3 className="text-md ">{food.name} - </h3>
+            <h3 className="text-lg ">{food.name} - </h3>
             <div className="flex text-gray-600 font-medium">
-              <div className="flex items-center my-2 text-sm ml-0">
+              <div className="flex items-center my-2 text-md ml-0">
                 {/* <p className="px-2">Quantity {count}</p> */}
                 <span>
                   {" "}
@@ -125,7 +125,7 @@ export const FoodCart = ({ food, count}) => {
           </div>
           <div className="flex justify-between m-1 flex-col">
             <img
-              className="h-[65] rounded-lg ml-3 p-1"
+              className="h-[75] rounded-lg ml-3 p-1"
               alt="res-img"
               src={IMG_URL + food.imageId}
             />
