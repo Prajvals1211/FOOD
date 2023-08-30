@@ -1,5 +1,3 @@
-
-
 const About = () => {
   return (
     <div className=" mt-2 flex flex-col items-center justify-center bg-pink-50">
@@ -16,26 +14,30 @@ const About = () => {
       </p>
       <ul className="my-4 text-lg">
         {" "}
-        Hello All,
         <li>
-          <span className="font-extrabold mx-2">-</span> I have used{" "}
-          <span className="text-pink-600">Parcel</span> as bundler to bundle
-          things up.
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600">Parcel</span> used as bundler to
+          bundle things up.
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>The application is
-          created using functional Components , inbuild hooks and custom hooks .
+          <span className="font-extrabold mx-2">-</span>This application is
+          created using{" "}
+          <span className="text-pink-600">
+            functional Components , inbuild hooks and custom hooks
+          </span>{" "}
+          .
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used inbuilt
-          hooks like <span className="text-pink-600">useState</span> ,{" "}
+          <span className="font-extrabold mx-2">-</span>Used inbuilt hooks like{" "}
+          <span className="text-pink-600">useState</span> ,{" "}
           <span className="text-pink-600">useEffect</span> ,{" "}
           <span className="text-pink-600">useContext</span>
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">Swiggy's Public API</span> for
-          fetching Resturant List and Menu
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">
+            Swiggy's Public API
+          </span>used for fetching Resturant List and Menu
         </li>
         <li>
           <span className="font-extrabold mx-2">-</span>Created some custom
@@ -43,36 +45,38 @@ const About = () => {
           list of menu items of a selected restaurant
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">Formik</span> for login page.
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">Formik</span>used for login page.
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">Shimmer</span> to make the UI friendly
-          for the User.
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">Shimmer</span>used to make the UI
+          friendly for the User.
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">Lazy Loading</span> to optimize my
-          application by loading resources only when they are needed.
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">Lazy Loading</span>used to
+          optimize my application by loading resources only when they are
+          needed.
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">Tailwind CSS</span> for designing and
-          styling the UI.
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">Tailwind CSS</span>used for
+          designing and styling the UI.
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">React Router</span> for routing.
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">React Router</span>used for
+          routing.
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">Redux Toolkit</span> for state
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">Redux Toolkit</span>used for state
           management.
         </li>
         <li>
-          <span className="font-extrabold mx-2">-</span>I have used{" "}
-          <span className="text-pink-600">react-hot-toast</span> for
+          <span className="font-extrabold mx-2">-</span>
+          <span className="text-pink-600 m-1">react-hot-toast</span>used for
           notification popUp.
         </li>
       </ul>
