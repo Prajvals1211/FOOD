@@ -129,7 +129,7 @@ export const FoodCart = ({ food, count}) => {
               alt="res-img"
               src={IMG_URL + food.imageId}
             />
-            <div className="flex items-center  bg-pink-50 font-bold w-[100px] justify-between ml-2">
+            <div className="flex items-center  bg-pink-50 font-bold w-[100px] justify-between ml-4">
               <button
                 className="text-xl text-green-600"
                 onClick={() => handleAddItem(food)}
