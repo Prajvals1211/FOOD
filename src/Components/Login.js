@@ -32,7 +32,9 @@ const Login = () => {
             setLogin({
               name: values.name,
             });
-            navigatetocart === 'cart'?navigate("/cart"):navigate("/") // this is used to navigate to body component
+            setTimeout(() => {
+              navigatetocart === "cart" ? navigate("/cart") : navigate("/"); // this is used to navigate to body component
+            }, 1000);
           }}
         >
           {({
