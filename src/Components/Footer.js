@@ -13,7 +13,9 @@ export const Footer = () => {
       </div>
       <div className="flex justify-between">
         <span className="m-2 mr-[80px]">
-          Email :<span className=" m-1 font-semibold">{user.email}</span>
+          Email : <span className="font-semibold m-1 hover:text-red-500">
+            <a href="mailto:prajwals345@gmail.com">{user.email}</a>
+          </span>
         </span>
         <span className="m-2 ml-[70px]"> Contact :
         <span className="m-1 font-semibold">{user.contact}</span></span>
