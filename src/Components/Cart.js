@@ -1,17 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { FoodCart, FoodCart1 } from "./Restuarant";
+import { FoodCart } from "./Restuarant";
 import { clearCart } from "../utils/cartSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import CartImage from "../Images/CartEmpty.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import LoginContext from "../utils/loginContext";
 import { useNavigate } from "react-router-dom";
 import { Navigatetologinpage } from "../utils/location";
 import { FcApproval } from "react-icons/fc";
 
 const Cart = () => {
-  let newCartItem;
   const navigate = useNavigate();
   const [Navigatetologin, setNavigateToLogin] = useContext(Navigatetologinpage);
   const { login } = useContext(LoginContext);
@@ -19,6 +18,17 @@ const Cart = () => {
   const [notification, setNotification] = useState(false);
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.items);
+
+  const [newiteminCards, setNewIteminCards] = useState([]);
+
+  useEffect(() => {
+    let uniqueCards;
+    if (cartItems.length > 0) {
+      uniqueCards = [...new Set(cartItems)];
+    }
+    setNewIteminCards(uniqueCards);
+  }, []);
+
   const handleClearCart = () => {
     dispatch(clearCart());
   };
@@ -26,10 +36,10 @@ const Cart = () => {
     setTimeout(() => {
       setNotification(true);
     }, 2000);
-   
+
     setTimeout(() => {
       toast.dismiss(a);
-     
+
       dispatch(clearCart());
     }, 3000);
   };
@@ -49,10 +59,8 @@ const Cart = () => {
   const navigateToLogin = () => {
     navigate("/login");
   };
-  let iteminCards = [];
-  if (cartItems.length > 0) {
-    iteminCards = [...new Set(cartItems)];
-  }
+  // let iteminCards = [];
+
   let totalAmount = 0;
   cartItems.map((e) => {
     e.price
@@ -142,18 +150,20 @@ const Cart = () => {
           Clear Cart
         </button>
       </div>
-      <div className="flex flex-row  h-fit items-center">
-        <div className="flex flex-col justify-center  p-1 m-1 w-[50%] ml-40">
-          {iteminCards.map((e) => {
+      <div className="flex flex-row items-center">
+        <div className="flex flex-col   p-1 m-1 w-[50%] ml-40">
+          {newiteminCards.map((e) => {
+            //  iteminCards
             let a = cartItems.filter((c) => {
               return c.id === e.id;
             }).length;
-            return <FoodCart food={e} count={a}  key={e.id} />;
+            
+            return a === 0 ? null : <FoodCart food={e} count={a} key={e.id} />;
           })}
         </div>
 
         <div className="h-[400px]">
-          <div className="flex  my-4 border-b-2 border-b-black items-center mt-28">
+          <div className="flex  my-4 border-b-2 border-b-black  mt-28">
             <div className="">
               <div className="border-b-2 p-2">
                 <h2 className="mx-14 px-10">Bill Details</h2>
